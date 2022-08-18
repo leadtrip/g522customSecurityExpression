@@ -18,26 +18,44 @@ class OpenController {
         [actions: actions, result: params.result]
     }
 
+    /**
+     * No restrictions on the controller but there are on the service
+     */
     def teleport() {
         redirect( action: 'index', params: [result: secureService.teleport()] )
     }
 
+    /**
+     * No restrictions on the controller but there are on the service
+     */
     def bounce() {
         redirect( action: 'index', params: [result: secureService.bounce()] )
     }
 
-    @Secured('hasShiroPerms()')
+    /**
+     * Restrictions on controller action, see CustomWebSecurityExpressionRoot hasCustomPermission()
+     * abseil action is allowed as setup in Bootstrap
+     */
+    @Secured('hasCustomPermission()')
     def abseil() {
-        redirect( action: 'index', params: [result: secureService.doShiro()] )
+        redirect( action: 'index', params: [result: secureService.abseil()] )
     }
 
-    @Secured('hasShiroPerms()')
+    /**
+     * Restrictions on controller action, see CustomWebSecurityExpressionRoot hasCustomPermission()
+     * fly action is allowed as setup in Bootstrap
+     */
+    @Secured('hasCustomPermission()')
     def fly() {
-        redirect( action: 'index', params: [result: secureService.doShiro()] )
+        redirect( action: 'index', params: [result: secureService.fly()] )
     }
 
-    @Secured('hasShiroPerms()')
+    /**
+     * Restrictions on controller action, see CustomWebSecurityExpressionRoot hasCustomPermission()
+     * climb action isn't allowed, not setup in Bootstrap
+     */
+    @Secured('hasCustomPermission()')
     def climb() {
-        redirect( action: 'index', params: [result: secureService.doShiro()] )
+        redirect( action: 'index', params: [result: secureService.climb()] )
     }
 }

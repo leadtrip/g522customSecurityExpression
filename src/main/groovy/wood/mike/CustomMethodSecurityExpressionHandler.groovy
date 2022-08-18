@@ -10,9 +10,6 @@ import org.springframework.security.core.Authentication
 
 class CustomMethodSecurityExpressionHandler extends DefaultMethodSecurityExpressionHandler {
 
-    @Autowired
-    ControllerActionPermissionService controllerActionPermissionService
-
     private AuthenticationTrustResolver trustResolver =
             new AuthenticationTrustResolverImpl();
 
@@ -20,7 +17,7 @@ class CustomMethodSecurityExpressionHandler extends DefaultMethodSecurityExpress
     protected MethodSecurityExpressionOperations createSecurityExpressionRoot(
             Authentication authentication, MethodInvocation invocation) {
         CustomMethodSecurityExpressionRoot root =
-                new CustomMethodSecurityExpressionRoot(authentication, controllerActionPermissionService);
+                new CustomMethodSecurityExpressionRoot(authentication);
         root.setPermissionEvaluator(getPermissionEvaluator());
         root.setTrustResolver(this.trustResolver);
         root.setRoleHierarchy(getRoleHierarchy());

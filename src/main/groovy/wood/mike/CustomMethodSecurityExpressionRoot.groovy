@@ -14,21 +14,18 @@ class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot implemen
     private Object filterObject;
     private Object returnObject;
 
-    @Autowired
-    ControllerActionPermissionService controllerActionPermissionService
 
-    CustomMethodSecurityExpressionRoot(Authentication authentication, ControllerActionPermissionService caps) {
-        super(authentication);
-        controllerActionPermissionService = caps
+    CustomMethodSecurityExpressionRoot(Authentication authentication) {
+        super(authentication)
     }
 
-    boolean hasShiroPerms() {
-        log.info "Checking SHIRO perms"
+    /**
+     * Custom permission method, just letting everything through
+     */
+    boolean hasCustomMethodPermission() {
+        log.info "Checking custom method permission"
 
-        String destController = getControllerName()
-        String destAction = getActionName() ?: getControllerClass().defaultAction
-
-        controllerActionPermissionService.isAllowed( authentication.principal.username, destController, destAction )
+        true
     }
 
     @Override

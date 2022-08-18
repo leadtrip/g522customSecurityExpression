@@ -16,8 +16,8 @@ class CustomWebSecurityExpressionRoot extends WebSecurityExpressionRoot implemen
         controllerActionPermissionService = caps
     }
 
-    boolean hasShiroPerms() {
-        log.info "Checking SHIRO perms"
+    boolean hasCustomPermission() {
+        log.info "Checking custom permission"
 
         String destController = getControllerName()
         String destAction = getActionName() ?: getControllerClass().defaultAction

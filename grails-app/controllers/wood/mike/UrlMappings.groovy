@@ -1,5 +1,9 @@
 package wood.mike
 
+import javassist.NotFoundException
+
+import java.nio.file.AccessDeniedException
+
 class UrlMappings {
 
     static mappings = {
@@ -10,7 +14,11 @@ class UrlMappings {
         }
 
         "/"(view:"/index")
-        "500"(view:'/error')
-        "404"(view:'/notFound')
+        "403"(controller: "errors", action: "error403")
+        "500"(controller: "errors", action: "error500")
+        "500"(controller: "errors", action: "error403",
+                exception: AccessDeniedException)
+        "500"(controller: "errors", action: "error403",
+                exception: NotFoundException)
     }
 }
